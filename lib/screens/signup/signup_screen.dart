@@ -1,6 +1,7 @@
 import 'package:brasil_fields/formatter/telefone_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_mobx/screens/signup/components/field_title.dart';
 import 'package:xlo_mobx/stores/signup_store.dart';
 
@@ -35,13 +36,16 @@ class SignUpScreen extends StatelessWidget {
                       title: "Apelido",
                       subtitle: "Como aparecerá em seus anúncios",
                     ),
-                    TextField(
-                      onChanged: signupStore.setName,
-                      decoration: InputDecoration(
-                          isDense: true,
-                          border: OutlineInputBorder(),
-                          hintText: "Exemplo: João S."),
-                    ),
+                    Observer(builder: (_){
+                      return TextField(
+                        onChanged: signupStore.setName,
+                        decoration: InputDecoration(
+                            errorText: signupStore.nameError,
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                            hintText: "Exemplo: João S."),
+                      );
+                    }),
                     SizedBox(
                       height: 16,
                     ),
