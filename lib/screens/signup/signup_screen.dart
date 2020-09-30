@@ -2,6 +2,7 @@ import 'package:brasil_fields/formatter/telefone_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:xlo_mobx/components/custom_drawer/error_box.dart';
 import 'package:xlo_mobx/screens/signup/components/field_title.dart';
 import 'package:xlo_mobx/stores/signup_store.dart';
 
@@ -31,12 +32,18 @@ class SignUpScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Observer(builder: (_){
+                      return ErrorBox(
+                        message: signupStore.error
+                      );
+                    }),
                     FieldTitle(
                       title: "Apelido",
                       subtitle: "Como aparecerá em seus anúncios",
                     ),
                     Observer(builder: (_) {
                       return TextField(
+                        enabled: !signupStore.loading,
                         onChanged: signupStore.setName,
                         decoration: InputDecoration(
                             errorText: signupStore.nameError,
@@ -55,6 +62,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return TextField(
+                          enabled: !signupStore.loading,
                           onChanged: signupStore.setEmail,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
@@ -75,6 +83,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_){
                         return TextField(
+                          enabled: !signupStore.loading,
                           onChanged: signupStore.setPhone,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
@@ -100,6 +109,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_){
                         return TextField(
+                          enabled: !signupStore.loading,
                           onChanged: signupStore.setPassword1,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -118,6 +128,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_){
                         return TextField(
+                          enabled: !signupStore.loading,
                           onChanged: signupStore.setPassword2,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -131,9 +142,10 @@ class SignUpScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(bottom: 12, top: 28),
                         height: 40,
                         child: RaisedButton(
-                          onPressed: signupStore.isFormValid ? () {} : null,
+                          onPressed: signupStore.signUpPressed,
                           color: Colors.orange,
-                          child: Text("CADASTRAR"),
+                          child: signupStore.loading ?
+                          CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white),) : Text("CADASTRAR"),
                           textColor: Colors.white,
                           elevation: 0,
                           disabledColor: Colors.orange.withAlpha(120),
