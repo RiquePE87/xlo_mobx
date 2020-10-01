@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ErrorBox extends StatelessWidget {
@@ -12,6 +13,8 @@ class ErrorBox extends StatelessWidget {
       return Container();
     }else{
       return Container(
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(bottom: 8),
         color: Colors.red,
         child: Row(
           children: [
