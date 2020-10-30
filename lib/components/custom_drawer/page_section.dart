@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:xlo_mobx/components/custom_drawer/page_tile.dart';
-import 'package:xlo_mobx/stores/page_store.dart';
+import 'package:xlo_mobx/stores/pages_store.dart';
 
 class PageSection extends StatelessWidget {
 
-  final PageStore pageStore = GetIt.I<PageStore>();
+  final PagesStore pageStore = GetIt.I<PagesStore>();
 
   @override
   Widget build(BuildContext context) {
