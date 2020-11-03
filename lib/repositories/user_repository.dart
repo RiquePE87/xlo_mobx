@@ -26,24 +26,24 @@ class UserRepository {
 
     if (response.success) {
       return mapParsetoUser(response.result);
-    }else{
+    } else {
       return Future.error(ParseErrors.getDescription(response.error.code));
     }
   }
 
-  Future<User> currentUser() async{
+  Future<User> currentUser() async {
     final parseUser = await ParseUser.currentUser();
 
-    if (parseUser != null){
-      final response = await ParseUser.getCurrentUserFromServer(parseUser.sectionToken);
-      if (response.success){
+    if (parseUser != null) {
+      final response =
+          await ParseUser.getCurrentUserFromServer(parseUser.sectionToken);
+      if (response.success) {
         return mapParsetoUser(response.result);
-      }else{
+      } else {
         await parseUser.logOut();
       }
-    }else{
-      return null;
     }
+    return null;
   }
 
   User mapParsetoUser(ParseUser parseUser) {
