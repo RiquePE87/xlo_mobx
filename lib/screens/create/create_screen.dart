@@ -2,10 +2,14 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xlo_mobx/components/custom_drawer/custom_drawer.dart';
+import 'package:xlo_mobx/stores/create_store.dart';
 
 import 'components/images_field.dart';
 
 class CreateScreen extends StatelessWidget {
+
+  final CreateStore createStore = CreateStore();
+
   @override
   Widget build(BuildContext context) {
     final labelStyle = TextStyle(
@@ -27,7 +31,7 @@ class CreateScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ImagesField(),
+            ImagesField(createStore),
             TextFormField(
               decoration: InputDecoration(
                 labelText: "Título *",
