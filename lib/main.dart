@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:xlo_mobx/repositories/category_repository.dart';
 import 'package:xlo_mobx/screens/base/base_screen.dart';
+import 'package:xlo_mobx/screens/category/category_screen.dart';
 import 'package:xlo_mobx/stores/category_store.dart';
 import 'package:xlo_mobx/stores/pages_store.dart';
 import 'package:xlo_mobx/stores/user_manager_store.dart';
@@ -22,8 +23,6 @@ Future<void> initializeParse() async {
       debug: true);
 }
 
-
-
 void setupLocators() {
   GetIt.I.registerSingleton(PagesStore());
   GetIt.I.registerSingleton(UserManagerStore());
@@ -42,6 +41,6 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
             appBarTheme: AppBarTheme(elevation: 0),
             scaffoldBackgroundColor: Colors.purple),
-        home: BaseScreen());
+        home: CategoryScreen());
   }
 }

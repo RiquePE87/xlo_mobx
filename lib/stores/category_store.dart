@@ -14,10 +14,29 @@ abstract class _CategoryStore with Store{
     _loadCategories();
   }
 
+  @computed
+  List<Category> get allCategories => List.from(categoriesList)
+    ..insert(0, Category(id: "*", description: "Todas"));
+
+  @observable
+  String error;
+
+  @action
+  void setError(String value) => error = value;
+
+  @action
+  void setCategories(List<Category> categories){
+    categoriesList.clear();
+    categoriesList.addAll(categories);
+  }
+
   Future<void> _loadCategories() async{
-
-    final categories = await CategoryRepository().getList();
-
+    try{
+      final categories = await CategoryRepository().getList();
+      setCategories(categories);
+    }catch (e){
+      setError(e);
+    }
   }
 
 }
