@@ -26,37 +26,36 @@ class CategoryScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16)
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Observer(builder: (_){
-              if (categoryStore.error != null){
-                return ErrorBox(message: categoryStore.error);
-              }else if (categoryStore.categoriesList.isEmpty){
-                return Center(
-                  child: CircularProgressIndicator()
-                );
-              }else{
-                final categories = showAll ? categoryStore.allCategories : categoryStore.categoriesList;
-                return ListView.separated(
-                    itemBuilder: (_, index){
-                      final category = categories[index];
-                      return InkWell(
-                        onTap: (){},
-                        child: Container(
-                          height: 50,
-                          color: category.id == selected?.id ? Colors.purple.withAlpha(50) : null,
-                        ),
-                      );
-                    },
-                    separatorBuilder: (_,__){
-                      return Divider(height: 0.1, color: Colors.grey);
-                    },
-                    itemCount: categories.length);
-              }
-            })
-          ],
-        ),
+        child: Observer(builder: (_){
+          if (categoryStore.error != null){
+            return ErrorBox(message: categoryStore.error);
+          }else if (categoryStore.categoriesList.isEmpty){
+            return Center(
+              child: CircularProgressIndicator()
+            );
+          }else{
+            final categories = showAll ? categoryStore.allCategories : categoryStore.categoriesList;
+            return ListView.separated(
+                itemBuilder: (_, index){
+                  final category = categories[index];
+                  return InkWell(
+                    onTap: ()=> Navigator.of(context).pop(category),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      color: category.id == selected?.id ? Colors.purple.withAlpha(50) : null,
+                      child: Text(category.description, style:
+                      TextStyle(color: Colors.grey[700],
+                          fontWeight: category.id == selected?.id ? FontWeight.bold : null)),
+                    ),
+                  );
+                },
+                separatorBuilder: (_,__){
+                  return Divider(height: 0.1, color: Colors.grey);
+                },
+                itemCount: categories.length);
+          }
+        }),
       ),
     );
   }

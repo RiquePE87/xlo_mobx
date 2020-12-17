@@ -41,6 +41,6 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
             appBarTheme: AppBarTheme(elevation: 0),
             scaffoldBackgroundColor: Colors.purple),
-        home: CategoryScreen());
+        home: BaseScreen());
   }
 }
